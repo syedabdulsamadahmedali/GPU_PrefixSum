@@ -73,7 +73,7 @@ root/
 | Real-world     | 18×                                | 6×                | Blelloch 1.7× faster   |
 | MNIST          | 11×                                | 6×                | Blelloch 1.8× faster   |
 
-> Blelloch consistently outperformed Hillis & Steele on GPU-only comparisons, while Hillis & Steele delivered better CPU-to-GPU speedup.
+> Blelloch consistently outperformed Hillis & Steele on GPU-only comparisons, while Hillis & Steele delivered better CPU-to-GPU speedup. Array sizes ranged from 1,024 to 67,108,864 elements
 
 ---
 
