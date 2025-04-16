@@ -93,13 +93,13 @@ root/
 ## 📊 Visual Results
 
 ### Execution Time on Genomic Data
-![Execution Time](root/plots/genomic_execution_times.png)
+![Execution Time](root/plots/genomic_all_implementations.png)
 
 ### CPU vs GPU Speedup (Genomic)
 ![CPU vs GPU Speedup](root/plots/genomic_speedup_cpu_vs_gpu.png)
 
 ### GPU vs GPU Speedup (Hillis & Steele vs Blelloch)
-![GPU vs GPU Speedup](root/plots/genomic_speedup_gpu_vs_gpu.png)
+![GPU vs GPU Speedup](root/plots/genomic_gpu_vs_gpu_speedup.png)
 
 
 ---
