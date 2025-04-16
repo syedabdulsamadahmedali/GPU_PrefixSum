@@ -100,21 +100,3 @@ root/
 
 ### GPU vs GPU Speedup (Hillis & Steele vs Blelloch)
 ![GPU vs GPU Speedup](root/plots/genomic_gpu_vs_gpu_speedup.png)
-
-
----
-
-## 📄 License
-
-MIT License. See `LICENSE` file.
-
----
-
-## 🙋‍♂️ Author
-
-**Your Name**  
-GitHub: [@yourusername](https://github.com/yourusername)
-
----
-
-> This project highlights the practical trade-offs between simplicity and efficiency in GPU-based parallel computing. For real-world applications, the choice of scan algorithm depends on workload characteristics, data distribution, and target hardware.
