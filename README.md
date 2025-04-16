@@ -90,9 +90,17 @@ root/
 
 ---
 
-## 📈 Example Visualization
+## 📊 Visual Results
 
-![Example Plot](https://raw.githubusercontent.com/yourusername/gpu-prefix-sum-julia/main/plots/genomic_speedup.png)
+### Execution Time on Genomic Data
+![Execution Time](root/plots/genomic_execution_times.png)
+
+### CPU vs GPU Speedup (Genomic)
+![CPU vs GPU Speedup](root/plots/genomic_speedup_cpu_vs_gpu.png)
+
+### GPU vs GPU Speedup (Hillis & Steele vs Blelloch)
+![GPU vs GPU Speedup](root/plots/genomic_speedup_gpu_vs_gpu.png)
+
 
 ---
 
