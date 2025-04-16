@@ -1,35 +1,42 @@
 # ⚡ GPU Prefix Sums in Julia: Hillis & Steele vs. Blelloch
 
-This project presents a comparative analysis of the **Hillis & Steele** and **Blelloch** parallel prefix sum (scan) algorithms. Implemented in **Julia** using **CUDA.jl**, it explores the performance of both algorithms on CPU and GPU across diverse datasets such as synthetic arrays, MNIST images, and genomic sequences.
+This project presents a **comparative performance study** of two foundational parallel prefix sum algorithms — **Hillis & Steele** and **Blelloch** — implemented in **Julia** using **CUDA.jl** for GPU acceleration. Prefix sum (scan) operations are essential in many high-performance computing applications including sorting, histogram generation, stream compaction, and genomic data analysis.
+
+The aim of this project is to analyze and benchmark these algorithms across various dimensions, including:
+- Execution speed on CPU vs GPU
+- Efficiency across different data distributions
+- Application to real-world data such as **MNIST images** and **genomic sequences**
 
 ---
 
 ## 📌 Key Features
 
-- 📈 Performance benchmarking on CPU vs. GPU
-- 🧬 Application to genomic data (rank table construction)
-- 🧪 Diverse test cases (sparse, sorted, random, skewed)
-- 📊 Visualizations of speedup and execution time
-- 💡 Implemented in Julia using CUDA.jl and BioSequences.jl
+- 📈 Benchmarks of CPU and GPU versions for both algorithms
+- 🧬 End-to-end genomic data processing pipeline using prefix sums
+- 🧪 Comprehensive test cases for validation and performance analysis
+- 📊 Visualization of execution time, CPU vs GPU speedup, and GPU vs GPU performance
+- 🧠 Implemented entirely in **Julia** with support for **CUDA.jl** and **BioSequences.jl**
 
 ---
 
-## 🧠 Algorithms
+## 🧠 Algorithm Overview
 
 ### Hillis & Steele
-Inclusive prefix sum using a step-wise doubling approach. High simplicity and CPU/GPU speedup.
+An inclusive scan algorithm based on step-wise doubling. Offers high CPU vs GPU speedup but is work-inefficient on GPUs due to repeated memory accesses.
 
 ### Blelloch
-Work-efficient exclusive prefix sum using an upsweep-downsweep tree strategy. Highly scalable.
+A work-efficient scan algorithm using a two-phase **upsweep** and **downsweep** strategy. Better suited for modern GPU architectures with optimized thread and memory utilization.
 
 ---
 
-## 🧪 Data Types
+## 🧪 Data Types & Distributions
 
-- Random, Sparse, Skewed, Sorted, Alternating
-- Real-world hybrid synthetic datasets
-- Flattened MNIST images
-- Synthetic genomic sequences
+The algorithms were evaluated on a variety of input types:
+- 📊 **Synthetic Distributions**: random, sparse, skewed, sorted, alternating
+- 📷 **MNIST**: flattened image data for structured workload simulation
+- 🧬 **Genomic Sequences**: simulated DNA strings processed to create rank tables using scan operations
+
+Each data type helps evaluate behavior under different memory and compute load patterns.
 
 ---
 
@@ -49,40 +56,9 @@ gpu-prefix-sum-julia/
 │   ├── main.jl
 │   ├── utils.jl
 │   └── common.jl
-├── plots/   # Auto-generated performance plots
+├── plots/
 └── README.md
 ```
-
----
-
-## 🚀 How to Run
-
-### 1. Install Requirements
-
-- Julia
-- NVIDIA GPU (8 GB+ VRAM recommended)
-- Packages: CUDA.jl, Plots.jl, BioSequences.jl, MLDatasets.jl, Random.jl, Distributions.jl
-
-```julia
-] activate .
-] add CUDA Plots BioSequences MLDatasets Random Distributions
-```
-
-### 2. Run Benchmarks
-
-```julia
-julia> include("benchmarks/main.jl")
-```
-
-Generates performance plots for all dataset types and implementations.
-
-### 3. Run Genomic Demo
-
-```julia
-julia> include("applications/genomic/genomic_main.jl")
-```
-
-Runs DNA sequence simulations, builds rank tables using prefix sums, and visualizes execution time and speedups.
 
 ---
 
@@ -90,25 +66,27 @@ Runs DNA sequence simulations, builds rank tables using prefix sums, and visuali
 
 | Dataset        | Hillis-Steele Speedup (CPU vs GPU) | Blelloch Speedup | GPU-to-GPU Comparison |
 |----------------|-------------------------------------|-------------------|------------------------|
-| Random         | 10x                                | 6x                | Blelloch 1.8x faster   |
-| Sparse         | 16x                                | 6x                | Blelloch 1.6x faster   |
-| Skewed         | 33x                                | 6x                | Blelloch 1.7x faster   |
-| Sorted         | 25x                                | 6x                | Blelloch 1.6x faster   |
-| Real-world     | 18x                                | 6x                | Blelloch 1.7x faster   |
-| MNIST          | 11x                                | 6x                | Blelloch 1.8x faster   |
+| Random         | 10×                                | 6×                | Blelloch 1.8× faster   |
+| Sparse         | 16×                                | 6×                | Blelloch 1.6× faster   |
+| Skewed         | 33×                                | 6×                | Blelloch 1.7× faster   |
+| Sorted         | 25×                                | 6×                | Blelloch 1.6× faster   |
+| Real-world     | 18×                                | 6×                | Blelloch 1.7× faster   |
+| MNIST          | 11×                                | 6×                | Blelloch 1.8× faster   |
 
-> Blelloch GPU has better raw GPU performance, while Hillis & Steele shows higher CPU vs GPU speedups.
+> Blelloch consistently outperformed Hillis & Steele on GPU-only comparisons, while Hillis & Steele delivered better CPU-to-GPU speedup.
 
 ---
 
 ## 🧬 Genomic Application
 
-- **Goal**: Build rank tables from DNA sequences.
-- **Steps**:
-  1. Generate DNA sequence using `BioSequences.jl`
-  2. Encode each base (A, C, G, T) as binary arrays
-  3. Apply prefix scan to generate cumulative counts
-  4. Benchmark all four algorithm versions (CPU/GPU)
+- **Context**: Genomic applications often require computing **rank tables** for DNA sequences.
+- **Implementation**:
+  - DNA sequences are encoded into four binary arrays (A, C, G, T).
+  - Prefix sum is applied to each array using both algorithms on CPU and GPU.
+  - The result is a rank table for genome indexing.
+- **Observations**:
+  - Hillis & Steele performed better for small to mid-size inputs.
+  - Blelloch scaled more efficiently for large sequences and maintained stable performance.
 
 ---
 
@@ -131,4 +109,4 @@ GitHub: [@yourusername](https://github.com/yourusername)
 
 ---
 
-> For optimal performance at scale, hybrid strategies (e.g., Hillis & Steele for small subarrays + Blelloch for tree-level scans) are worth exploring.
+> This project highlights the practical trade-offs between simplicity and efficiency in GPU-based parallel computing. For real-world applications, the choice of scan algorithm depends on workload characteristics, data distribution, and target hardware.
