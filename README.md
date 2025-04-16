@@ -43,7 +43,7 @@ Each data type helps evaluate behavior under different memory and compute load p
 ## 📁 Repository Structure
 
 ```
-gpu-prefix-sum-julia/
+root/
 ├── algorithms/
 │   ├── hillis_steele.jl
 │   ├── blelloch.jl
