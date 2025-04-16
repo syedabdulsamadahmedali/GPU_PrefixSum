@@ -55,7 +55,7 @@ gpu-prefix-sum-julia/
 ├── benchmarks/
 │   ├── main.jl
 │   ├── utils.jl
-│   └── common.jl
+├── common.jl
 ├── plots/
 └── README.md
 ```
